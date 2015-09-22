@@ -13,6 +13,6 @@ NOTE: Section Pending
 * the source code of this book is MIT licensed (see link:LICENSE[LICENSE])
 * the documentation of this book is licensed under a http://creativecommons.org/licenses/by-nc-sa/4.0/[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License]
 
-image::https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png[title="CC by-nc-sa 4.0", alt="CC by-nc-sa 4.0", link="http://creativecommons.org/licenses/by-nc-sa/4.0/"]
+image::https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png[alt="CC by-nc-sa 4.0", link="http://creativecommons.org/licenses/by-nc-sa/4.0/"]
 
 
