@@ -2,6 +2,8 @@ This is the source for the in-progress book *graphicsByExample*.
 
 Issues and pull requests are very welcome. :-)
 
+The open nature of this book is partially inspired by Robert Nystrom's excellent http://gameprogrammingpatterns.com/[Game Programming Patterns]
+
 ## Building the book
 
 NOTE: Section Pending
