@@ -1,4 +1,4 @@
-This is the source for the in-progress book *graphicsByExample*.
+This is the source for the in-progress book *graphicsByExample*. It is hosted online at http://shearer12345.github.io/graphicsByExample
 
 Issues and pull requests are very welcome. :-)
 
