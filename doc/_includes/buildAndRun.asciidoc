@@ -1,0 +1,35 @@
+### Build the solution/make files
+
+* Initially, and whenever you change the branch, or the `premake5.lua` file, (re)run *premake*
+
+* from the root of the repository
+
+.Linux, OS X
+[source, bash]
+----
+./premake5 $ACTION # <1>
+----
+
+.Windows
+[source, bat]
+----
+./premake.bat %ACTION% # <1>
+----
+<1> replace `ACTION` with the tool you wish to use
+
+### Build your project
+
+#### Visual Studio
+
+1. Load the `.sln` file
+2. Build and run the project you wish to explore
+
+
+#### Make
+
+[source, bash]
+----
+make
+./bin/$EXAMPLE # <1>
+----
+<1> replace `EXAMPLE` with the example you wish to run

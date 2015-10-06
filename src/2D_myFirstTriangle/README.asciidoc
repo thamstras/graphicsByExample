@@ -1,0 +1,1 @@
+include::../../doc/_includes/buildAndRun.asciidoc[]
