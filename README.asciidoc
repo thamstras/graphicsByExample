@@ -4,6 +4,58 @@ Issues and pull requests are very welcome. :-)
 
 The open nature of this book is partially inspired by Robert Nystrom's excellent http://gameprogrammingpatterns.com/[Game Programming Patterns]
 
+## Example code
+
+* each example is complete and in a separate git branch
+  ** allowing you to `diff` between branches to see what has changed
+* the `master` branch composes all the example branches together for rapid demonstrations/explorations
+* all examples are in C++11, using modern OpenGL
+* all examples are cross-platform (Windows, Linux, OS X)
+
+## Building examples
+
+* we use https://premake.github.io/index.html[premake5] to build solutions and projects
+  ** Visual Studio 2005, 2008, 2010, 2012, 2013, 2015
+  ** Make
+  ** Xcode4
+  ** MonoDevelop
+
+* to build, in the root of the repository, run:
+
+### Build the solution/make files
+
+.Linux, OS X
+[source, bash]
+----
+./premake5 $ACTION # <1>
+----
+
+.Windows
+[source, bat]
+----
+./premake.bat %ACTION% # <1>
+----
+<1> replace `ACTION` with the tool you wish to use
+
+### Build your project
+
+#### Visual Studio
+
+1. Load the `.sln` file
+2. Build and run the project you wish to explore
+3. Whenever you change the branch, or the `premake5.lua` file, rerun premake
+
+
+#### Make
+
+[source, bash]
+----
+make
+./bin/$EXAMPLE # <1>
+----
+<1> replace `EXAMPLE` with the example you wish to run
+
+
 ## Building the book
 
 NOTE: Section Pending
@@ -14,5 +66,3 @@ NOTE: Section Pending
 * the documentation of this book is licensed under a http://creativecommons.org/licenses/by-nc-sa/4.0/[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License]
 
 image::https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png[alt="CC by-nc-sa 4.0", link="http://creativecommons.org/licenses/by-nc-sa/4.0/"]
-
-
