@@ -2,7 +2,7 @@
 #define STRING(x) STRING2(x)
 
 #if __cplusplus < 201103L
-  #error This program needs at least a C++11 compliant compiler
+  #pragma message("WARNING: the compiler may not be C++11 compliant. __cplusplus version is : " STRING(__cplusplus))
 #endif
 
 #include <iostream>
