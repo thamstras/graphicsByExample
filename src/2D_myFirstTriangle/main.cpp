@@ -47,7 +47,8 @@ const std::string strFragmentShader = R"(
 //our variables
 bool done = false;
 
-const GLfloat vertexPositions[] = {
+//the data about our geometry
+const GLfloat vertexData[] = {
 	0.0f, 0.5f, 0.0f, 1.0f,
 	-0.4330127f, -0.25f, 0.0f, 1.0f,
 	0.4330127f, -0.25f, 0.0f, 1.0f,
@@ -63,8 +64,8 @@ GLuint theProgram; //GLuint that we'll fill in to refer to the GLSL program (onl
 GLint positionLocation; //GLuint that we'll fill in with the location of the `offset` variable in the GLSL
 GLint offsetLocation; //GLuint that we'll fill in with the location of the `offset` variable in the GLSL
 
-GLuint positionBufferObject;
-GLuint vao;
+GLuint vertexDataBufferObject;
+GLuint vertexArrayObject;
 
 // end Global Variables
 /////////////////////////
@@ -230,12 +231,12 @@ void initializeProgram()
 
 void initializeVertexBuffer()
 {
-	glGenBuffers(1, &positionBufferObject);
+	glGenBuffers(1, &vertexDataBufferObject);
 
-	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexDataBufferObject);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	cout << "positionBufferObject created OK! GLUint is: " << positionBufferObject << std::endl;
+	cout << "vertexDataBufferObject created OK! GLUint is: " << vertexDataBufferObject << std::endl;
 }
 
 void loadAssets()
@@ -247,20 +248,20 @@ void loadAssets()
 	cout << "Loaded Assets OK!\n";
 }
 
-void setupVAO()
+void setupvertexArrayObject()
 {
-	glGenVertexArrays(1, &vao); //create a Vertex Array Object
-	cout << "Vertex Array Object created OK! GLUint is: " << vao << std::endl;
+	glGenVertexArrays(1, &vertexArrayObject); //create a Vertex Array Object
+	cout << "Vertex Array Object created OK! GLUint is: " << vertexArrayObject << std::endl;
 
-	glBindVertexArray(vao); //make the just created VAO the active one
+	glBindVertexArray(vertexArrayObject); //make the just created vertexArrayObject the active one
 
-		glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject); //bind positionBufferObject 
+		glBindBuffer(GL_ARRAY_BUFFER, vertexDataBufferObject); //bind vertexDataBufferObject
 
 		glEnableVertexAttribArray(positionLocation); //enable attribute at index positionLocation
 
 		glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, 0, 0); //specify that position data contains four floats per vertex, and goes into attribute index positionLocation
 
-	glBindVertexArray(0); //unbind the VAO so we can't change it 
+	glBindVertexArray(0); //unbind the vertexArrayObject so we can't change it
 
 	//cleanup
 	glDisableVertexAttribArray(positionLocation); //disable vertex attribute at index positionLocation
@@ -284,7 +285,7 @@ void handleInput()
 
 	//NOTE: there may be multiple events per frame
 	while (SDL_PollEvent(&event)) //loop until SDL_PollEvent returns 0 (meaning no more events)
-	{ 
+	{
 		switch (event.type)
 		{
 		case SDL_QUIT:
@@ -311,8 +312,7 @@ void handleInput()
 
 void updateSimulation(double simLength) //update simulation with an amount of time to simulate for (in seconds)
 {
-	offset[0] += offsetVelocity[0] * simLength;
-	offset[1] += offsetVelocity[1] * simLength;
+  //CHANGE ME
 }
 
 void preRender()
@@ -331,10 +331,10 @@ void render()
 		//alternatively, use glUnivform2fv
 		//glUniform2fv(offsetLocation, 1, offset); //Note: the count is 1, because we are setting a single uniform vec2 - https://www.opengl.org/wiki/GLSL_:_common_mistakes#How_to_use_glUniform
 
-	glBindVertexArray(vao);
-	
+	glBindVertexArray(vertexArrayObject);
+
 	glDrawArrays(GL_TRIANGLES, 0, 3); //Draw something, using Triangles, and 3 vertices - i.e. one lonely triangle
-	
+
 	glBindVertexArray(0);
 
 	glUseProgram(0); //clean up
@@ -360,23 +360,23 @@ int main( int argc, char* args[] )
 	//- do just once
 	initialise();
 	createWindow();
-	
+
 	createContext();
-	
+
 	initGlew();
 
 	glViewport(0,0,600,600); //should check what the actual window res is?
 
-    SDL_GL_SwapWindow(win); //just force a swap, to make the trace clearer
+  SDL_GL_SwapWindow(win); //force a swap, to make the trace clearer
 
-	//load stuff from files
-	//- usually do just once
+	//do stuff that only needs to happen once
 	//- create shaders
+	//- load vertex data
 	loadAssets();
 
-	//setup a GL object (a VertexArrayObject) that stores how to access data, from where
-	setupVAO();
-	
+	//setup a GL object (a VertexArrayObject) that stores how to access data and from where
+	setupvertexArrayObject();
+
 
 
 	while (!done) //loop until done flag is set)
@@ -386,14 +386,14 @@ int main( int argc, char* args[] )
 		updateSimulation(0.02); //call update simulation with an amount of time to simulate for (in seconds)
 		  //WARNING - we are always updating by a constant amount of time. This should be tied to how long has elapsed
 		    // see, for example, http://headerphile.blogspot.co.uk/2014/07/part-9-no-more-delays.html
-        
+
 		preRender();
 
 		render(); //RENDER HERE - PLACEHOLDER
 
 		postRender();
-		
-	} 
+
+	}
 
 	//cleanup and exit
 	cleanUp();
@@ -401,4 +401,3 @@ int main( int argc, char* args[] )
 
 	return 0;
 }
-
