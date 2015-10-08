@@ -104,12 +104,12 @@ void createWindow()
 
 void setGLAttributes()
 {
-	cout << "Built for OpenGL Version 3.3" << endl; //ahttps://en.wikipedia.org/wiki/OpenGL_Shading_Language#Versions
-	// set the opengl context version
-	int major = 3;
+  int major = 3;
 	int minor = 3;
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	cout << "Built for OpenGL Version " << major << "." << minor << endl; //ahttps://en.wikipedia.org/wiki/OpenGL_Shading_Language#Versions
+	// set the opengl context version
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); //core profile
 	cout << "Set OpenGL context to versicreate remote branchon " << major << "." << minor << " OK!\n";
 }
