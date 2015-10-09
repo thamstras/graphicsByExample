@@ -26,12 +26,12 @@ std::string frameLine = "";
 //string holding the **source** of our vertex shader, to save loading from a file
 const std::string strVertexShader = R"(
 	#version 330
-	in vec4 position;
+	in vec2 position;
 	uniform vec2 offset;
 	void main()
 	{
-	   gl_Position = position;
-	   gl_Position.xy += offset;
+	   vec2 tmpPosition = position + offset;
+     gl_Position = vec4(tmpPosition, 0.0, 1.0);
 	}
 )";
 
@@ -51,9 +51,9 @@ bool done = false;
 
 //the data about our geometry
 const GLfloat vertexData[] = {
-	0.0f, 0.5f, 0.0f, 1.0f,
-	-0.4330127f, -0.25f, 0.0f, 1.0f,
-	0.4330127f, -0.25f, 0.0f, 1.0f,
+	 0.000f,  0.500f,
+	-0.433f, -0.250f,
+	 0.433f, -0.250f,
 };
 
 //the offset we'll pass to the GLSL
@@ -261,7 +261,7 @@ void setupvertexArrayObject()
 
 		glEnableVertexAttribArray(positionLocation); //enable attribute at index positionLocation
 
-		glVertexAttribPointer(positionLocation, 4, GL_FLOAT, GL_FALSE, 0, 0); //specify that position data contains four floats per vertex, and goes into attribute index positionLocation
+		glVertexAttribPointer(positionLocation, 2, GL_FLOAT, GL_FALSE, 0, 0); //specify that position data contains four floats per vertex, and goes into attribute index positionLocation
 
 	glBindVertexArray(0); //unbind the vertexArrayObject so we can't change it
 
