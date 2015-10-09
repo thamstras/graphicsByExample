@@ -4,14 +4,6 @@ Issues and pull requests are very welcome. :-)
 
 The open nature of this book is partially inspired by Robert Nystrom's excellent http://gameprogrammingpatterns.com/[Game Programming Patterns]
 
-## Example code
-
-* each example is complete and in a separate git branch
-  ** allowing you to `diff` between branches to see what has changed
-* the `master` branch composes all the example branches together for rapid demonstrations/explorations
-* all examples are in C++11, using modern OpenGL
-* all examples are cross-platform (Windows, Linux, OS X)
-
 ## Getting example code
 
 * clone the repository recursively (to also pull down the dependencies)
@@ -20,6 +12,17 @@ The open nature of this book is partially inspired by Robert Nystrom's excellent
 ----
 git clone --recursive https://github.com/shearer12345/graphicsByExample.git
 ----
+
+* OR fork the repository on github and clone it from your repository
+  ** you may want to then make your repository private
+
+## Example code
+
+* each example is complete and in a separate git branch
+  ** allowing you to `diff` between branches to see what has changed
+* the `master` branch composes all the example branches together for rapid demonstrations/explorations
+* all examples are in C++11, using modern OpenGL
+* all examples are cross-platform (Windows, Linux, OS X)
 
 ## Building examples
 
