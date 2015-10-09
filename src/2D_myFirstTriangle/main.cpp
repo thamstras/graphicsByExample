@@ -20,6 +20,8 @@ using namespace std;
 std::string exeName;
 SDL_Window *win; //pointer to the SDL_Window
 SDL_GLContext context; //the SDL_GLContext
+int frameCount = 0;
+std::string frameLine = "";
 
 //string holding the **source** of our vertex shader, to save loading from a file
 const std::string strVertexShader = R"(
@@ -344,6 +346,9 @@ void render()
 void postRender()
 {
 	SDL_GL_SwapWindow(win);; //present the frame buffer to the display (swapBuffers)
+  frameLine += "Frame: " + std::to_string(frameCount++);
+  cout << "\r" << frameLine << std::flush;
+  frameLine = "";
 }
 
 void cleanUp()
@@ -376,8 +381,6 @@ int main( int argc, char* args[] )
 
 	//setup a GL object (a VertexArrayObject) that stores how to access data and from where
 	setupvertexArrayObject();
-
-
 
 	while (!done) //loop until done flag is set)
 	{
