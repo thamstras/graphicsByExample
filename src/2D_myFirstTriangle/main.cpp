@@ -1,28 +1,35 @@
+# tag::C++11check[]
 #define STRING2(x) #x
 #define STRING(x) STRING2(x)
 
 #if __cplusplus < 201103L
   #pragma message("WARNING: the compiler may not be C++11 compliant. __cplusplus version is : " STRING(__cplusplus))
 #endif
+# end::C++11check[]
 
+# tag::includes[]
 #include <iostream>
 #include <vector>
 #include <algorithm>
 
 #include <GL/glew.h>
 #include <SDL.h>
+# end::includes[]
 
+# tag::namespace[]
 using namespace std;
+# end::namespace[]
 
-/////////////////////
-// global variables
 
+# tag::globalVariables[]
 std::string exeName;
 SDL_Window *win; //pointer to the SDL_Window
 SDL_GLContext context; //the SDL_GLContext
 int frameCount = 0;
 std::string frameLine = "";
+# end::globalVariables[]
 
+# tag::vertexShader[]
 //string holding the **source** of our vertex shader, to save loading from a file
 const std::string strVertexShader = R"(
 	#version 330
@@ -34,7 +41,9 @@ const std::string strVertexShader = R"(
      gl_Position = vec4(tmpPosition, 0.0, 1.0);
 	}
 )";
+# end::vertexShader[]
 
+# tag::fragmentShader[]
 //string holding the **source** of our fragment shader, to save loading from a file
 const std::string strFragmentShader = R"(
 	#version 330
@@ -44,7 +53,7 @@ const std::string strFragmentShader = R"(
 	   outputColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 )";
-
+# end::fragmentShader[]
 
 //our variables
 bool done = false;

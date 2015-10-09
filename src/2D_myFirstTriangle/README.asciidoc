@@ -1,1 +1,8 @@
+[source, cpp]
+----
+include::main.cpp[tags=vertexShader;fragmentShader]
+
+----
+
+
 include::../../doc/_includes/buildAndRun.asciidoc[]
