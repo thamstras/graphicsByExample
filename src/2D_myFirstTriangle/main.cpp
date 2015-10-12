@@ -51,9 +51,10 @@ const std::string strVertexShader = R"(
 const std::string strFragmentShader = R"(
 	#version 330
 	out vec4 outputColor;
+	uniform vec4 color;
 	void main()
 	{
-	   outputColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	   outputColor = color;
 	}
 )";
 // end::fragmentShader[]
@@ -72,12 +73,14 @@ const GLfloat vertexData[] = {
 //the offset we'll pass to the GLSL
 GLfloat offset[] = { -0.5, -0.5 }; //using different values from CPU and static GLSL examples, to make it clear this is working
 GLfloat offsetVelocity[] = { 0.2, 0.2 }; //rate of change of offset in units per second
+GLfloat color[] = { 1.0, 1.0, 1.0, 1.0 };
 
 //our GL and GLSL variables
 
 GLuint theProgram; //GLuint that we'll fill in to refer to the GLSL program (only have 1 at this point)
 GLint positionLocation; //GLuint that we'll fill in with the location of the `offset` variable in the GLSL
 GLint offsetLocation; //GLuint that we'll fill in with the location of the `offset` variable in the GLSL
+GLint colorLocation;
 
 GLuint vertexDataBufferObject;
 GLuint vertexArrayObject;
@@ -240,6 +243,7 @@ void initializeProgram()
 
 	positionLocation = glGetAttribLocation(theProgram, "position");
 	offsetLocation = glGetUniformLocation(theProgram, "offset");
+	colorLocation = glGetUniformLocation(theProgram, "color");
 	//clean up shaders (we don't need them anymore as they are no in theProgram
 	for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 }
@@ -345,6 +349,8 @@ void render()
 	glUniform2f(offsetLocation, offset[0], offset[1]);
 		//alternatively, use glUnivform2fv
 		//glUniform2fv(offsetLocation, 1, offset); //Note: the count is 1, because we are setting a single uniform vec2 - https://www.opengl.org/wiki/GLSL_:_common_mistakes#How_to_use_glUniform
+
+	glUniform4fv(colorLocation, 1, color);
 
 	glBindVertexArray(vertexArrayObject);
 
