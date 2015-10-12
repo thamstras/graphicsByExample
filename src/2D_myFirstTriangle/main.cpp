@@ -123,7 +123,7 @@ void setGLAttributes()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); //core profile
-	cout << "Set OpenGL context to versicreate remote branchon " << major << "." << minor << " OK!\n";
+	cout << "Set OpenGL context to version " << major << "." << minor << " OK!\n";
 }
 
 void createContext()
