@@ -4,6 +4,7 @@
 
 * make sure you have the repository - see <<gettingTheSource, gettingTheSource>>
   ** make sure you are in the `master` branch, or have checked out the branch you want - see <<checkingOutAnExampleBranch, checking out an example branch>>
+  ** make sure your branch is up to date - run `git pull`
 * from the root of the repository
 
 ==== Create the project files

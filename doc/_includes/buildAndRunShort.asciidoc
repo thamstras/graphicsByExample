@@ -7,6 +7,7 @@
 [source, bat]
 ----
 git checkout %EXAMPLE%
+git pull
 ./premake5.bat vs2015
 ----
 
@@ -18,6 +19,7 @@ git checkout %EXAMPLE%
 [source, bash]
 ----
 git checkout $EXAMPLE
+git pull
 ./premake5 gmake
 make $EXAMPLE
 ./bin/$EXAMPLE-debug
