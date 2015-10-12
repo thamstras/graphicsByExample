@@ -288,6 +288,14 @@ void setupvertexArrayObject()
 
 }
 
+void changeColor()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		color[i] = ((float)rand()) / (float)RAND_MAX;
+	}
+}
+
 void handleInput()
 {
 	//Event-based input handling
@@ -322,7 +330,11 @@ void handleInput()
 				switch (event.key.keysym.sym)
 				{
 					//hit escape to exit
-					case SDLK_ESCAPE: done = true;
+					case SDLK_ESCAPE:
+						done = true;
+						break;
+					case SDLK_RETURN:
+						changeColor();
 				}
 			break;
 		}
