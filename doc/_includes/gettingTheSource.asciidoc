@@ -16,10 +16,10 @@ git clone --recursive https://github.com/shearer12345/graphicsByExample.git ## <
 .Linux, OS X
 [source, bash]
 ----
-git clone https://github.com/shearer12345/graphicsByExample.git ## <2> <3>
+git clone https://github.com/shearer12345/graphicsByExample.git ## <1> <2>
 ----
-<2> Linux dependencies should be installed through your package manager. These include: `build-essential`, `libsdl2-dev`, `libglew-dev`, `libsdl2-image-dev`, `libsdl2-ttf-dev`.
-<3> You'll also need link:https://premake.github.io/download.html[premake5] on your system and in the path.
+<1> Linux dependencies should be installed through your package manager. These include: `build-essential`, `libsdl2-dev`, `libglew-dev`, `libsdl2-image-dev`, `libsdl2-ttf-dev`.
+<2> You'll also need link:https://premake.github.io/download.html[premake5] on your system and in the path.
 
 ==== Fork the repository
 
