@@ -12,6 +12,8 @@
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <time.h>
+#include <stdlib.h>
 
 #include <GL/glew.h>
 #include <SDL.h>
@@ -58,6 +60,7 @@ const std::string strFragmentShader = R"(
 
 //our variables
 bool done = false;
+clock_t lastFrame_t = 0, thisFrame_t = 0;
 
 //the data about our geometry
 const GLfloat vertexData[] = {
@@ -356,9 +359,18 @@ void render()
 void postRender()
 {
 	SDL_GL_SwapWindow(win);; //present the frame buffer to the display (swapBuffers)
-  frameLine += "Frame: " + std::to_string(frameCount++);
-  cout << "\r" << frameLine << std::flush;
-  frameLine = "";
+	
+	thisFrame_t = clock();
+
+	double frameTime = (thisFrame_t - lastFrame_t) / (double)CLOCKS_PER_SEC;
+	lastFrame_t = thisFrame_t;
+	double fps = 1 / frameTime;
+	
+	frameLine += "Frame: " + std::to_string(frameCount++);
+	frameLine += "\tFrameTime: " + std::to_string(frameTime);
+	frameLine += "\tFPS: " + std::to_string(fps);
+	cout << "\r" << frameLine << std::flush;
+	frameLine = "";
 }
 
 void cleanUp()
