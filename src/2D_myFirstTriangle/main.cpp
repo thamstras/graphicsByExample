@@ -38,11 +38,14 @@ std::string frameLine = "";
 const std::string strVertexShader = R"(
 	#version 330
 	in vec2 position;
+	in vec3 in_Color;
+	out vec3 pass_Color;
 	uniform vec2 offset;
 	void main()
 	{
-	   vec2 tmpPosition = position + offset;
-     gl_Position = vec4(tmpPosition, 0.0, 1.0);
+		pass_Color = in_Color;
+		vec2 tmpPosition = position + offset;
+		gl_Position = vec4(tmpPosition, 0.0, 1.0);
 	}
 )";
 // end::vertexShader[]
@@ -52,10 +55,10 @@ const std::string strVertexShader = R"(
 const std::string strFragmentShader = R"(
 	#version 330
 	out vec4 outputColor;
-	uniform vec4 color;
+	in vec3 pass_Color;
 	void main()
 	{
-	   outputColor = color;
+	   outputColor = vec4(pass_Color, 1.0);
 	}
 )";
 // end::fragmentShader[]
@@ -72,6 +75,13 @@ const GLfloat vertexData[] = {
 	 0.433f, -0.250f,
 };
 
+//the data about our color
+const GLfloat colorData[] = {
+	1.0f, 0.0f, 0.0f,
+	0.0f, 1.0f, 0.0f,
+	0.0f, 0.0f, 1.0f
+};
+
 //the offset we'll pass to the GLSL
 GLfloat offset[] = { -0.5, -0.5 }; //using different values from CPU and static GLSL examples, to make it clear this is working
 GLfloat offsetVelocity[] = { 0.2, 0.2 }; //rate of change of offset in units per second
@@ -86,6 +96,7 @@ GLint offsetLocation; //GLuint that we'll fill in with the location of the `offs
 GLint colorLocation;
 
 GLuint vertexDataBufferObject;
+GLuint vertexColorBufferObject;
 GLuint vertexArrayObject;
 
 // end Global Variables
@@ -246,7 +257,7 @@ void initializeProgram()
 
 	positionLocation = glGetAttribLocation(theProgram, "position");
 	offsetLocation = glGetUniformLocation(theProgram, "offset");
-	colorLocation = glGetUniformLocation(theProgram, "color");
+	colorLocation = glGetAttribLocation(theProgram, "in_Color");
 	//clean up shaders (we don't need them anymore as they are no in theProgram
 	for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 }
@@ -259,6 +270,13 @@ void initializeVertexBuffer()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	cout << "vertexDataBufferObject created OK! GLUint is: " << vertexDataBufferObject << std::endl;
+
+	glGenBuffers(1, &vertexColorBufferObject);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexColorBufferObject);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	cout << "vertexColorBufferObject created OK! GLuint is: " << vertexColorBufferObject << std::endl;
 }
 
 void loadAssets()
@@ -282,6 +300,13 @@ void setupvertexArrayObject()
 		glEnableVertexAttribArray(positionLocation); //enable attribute at index positionLocation
 
 		glVertexAttribPointer(positionLocation, 2, GL_FLOAT, GL_FALSE, 0, 0); //specify that position data contains four floats per vertex, and goes into attribute index positionLocation
+
+
+		glBindBuffer(GL_ARRAY_BUFFER, vertexColorBufferObject);
+
+		glEnableVertexAttribArray(colorLocation);
+
+		glVertexAttribPointer(colorLocation, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindVertexArray(0); //unbind the vertexArrayObject so we can't change it
 
@@ -368,7 +393,7 @@ void render()
 		//alternatively, use glUnivform2fv
 		//glUniform2fv(offsetLocation, 1, offset); //Note: the count is 1, because we are setting a single uniform vec2 - https://www.opengl.org/wiki/GLSL_:_common_mistakes#How_to_use_glUniform
 
-	glUniform4fv(colorLocation, 1, color);
+	//glUniform4fv(colorLocation, 1, color);
 
 	glBindVertexArray(vertexArrayObject);
 
