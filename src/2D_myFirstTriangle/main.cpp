@@ -14,6 +14,7 @@
 #include <string>
 #include <time.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include <GL/glew.h>
 #include <SDL.h>
@@ -62,6 +63,7 @@ const std::string strFragmentShader = R"(
 //our variables
 bool done = false;
 clock_t lastFrame_t = 0, thisFrame_t = 0;
+double sim_t = 0;
 
 //the data about our geometry
 const GLfloat vertexData[] = {
@@ -343,7 +345,8 @@ void handleInput()
 
 void updateSimulation(double simLength) //update simulation with an amount of time to simulate for (in seconds)
 {
-  //CHANGE ME
+	sim_t += simLength;
+	offset[0] = sin(sim_t) / 2; // /2 so triangle stays on screen.
 }
 
 void preRender()
