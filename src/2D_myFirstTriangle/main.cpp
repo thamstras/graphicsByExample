@@ -75,7 +75,8 @@ const GLfloat vertexData[] = {
 //the offset we'll pass to the GLSL
 GLfloat offset[] = { -0.5, -0.5 }; //using different values from CPU and static GLSL examples, to make it clear this is working
 GLfloat offsetVelocity[] = { 0.2, 0.2 }; //rate of change of offset in units per second
-GLfloat color[] = { 1.0, 1.0, 1.0, 1.0 };
+
+GLfloat color[] = { 1.0, 0.0, 0.0, 1.0 }; //set the initial color. (1, 0, 0, 1) ie: Red.
 
 //our GL and GLSL variables
 
@@ -336,7 +337,8 @@ void handleInput()
 						done = true;
 						break;
 					case SDLK_RETURN:
-						changeColor();
+						//changeColor(); //disabled for time based color change.
+						break;
 				}
 			break;
 		}
@@ -347,12 +349,13 @@ void updateSimulation(double simLength) //update simulation with an amount of ti
 {
 	sim_t += simLength;
 	offset[0] = sin(sim_t) / 2; // /2 so triangle stays on screen.
+	color[0] = sin(sim_t) + 0.5f;
 }
 
 void preRender()
 {
 	glViewport(0, 0, 600, 600); //set viewpoint
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f); //set clear colour
+	glClearColor(0.0f, 0.0f, 1.0f, 1.0f); //set clear colour
 	glClear(GL_COLOR_BUFFER_BIT); //clear the window (technical the scissor box bounds)
 }
 
