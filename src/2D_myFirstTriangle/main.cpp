@@ -312,6 +312,7 @@ void setupvertexArrayObject()
 
 	//cleanup
 	glDisableVertexAttribArray(positionLocation); //disable vertex attribute at index positionLocation
+	glDisableVertexAttribArray(colorLocation);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind array buffer
 
 }
