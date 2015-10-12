@@ -71,5 +71,5 @@ solution "graphicsByExample"
              optimize "On"
 
           configuration "windows"
-             postbuildcommands { ".\\post-build-event.bat" }
+             postbuildcommands { "post-build-event.bat" }
    end
